@@ -1,0 +1,29 @@
+-
+ hosts: all
+ become: true
+ gather_facts: True
+ tasks: 
+       - name: read device information
+         parted:
+               device: /dev/sda
+               unit: MiB
+               state: info
+         register: sda_info
+       - name: diplay sda_info
+         debug:
+                 msg: "{{ sda_info }}"
+       - name: Creating extended partition
+         parted:
+                 device: /dev/sda
+                 number: "3"
+                 part_type: extended
+                 part_start: "{{ sda_info['partitions'][1].end + 1 }}MiB"
+                 state: present        
+       - name: Creating logical partition
+         parted:
+                 device: /dev/sda
+                 number: "4"
+                 part_type: logical
+                 part_start: "{{ sda_info['partitions'][2].end + 2 }}MiB"
+                 part_end: "{{ sda_info['partitions'][2].end + 202 }}MiB"
+                 state: present           

@@ -1,0 +1,21 @@
+[prod1]
+ansible-target1
+
+
+[prod2]
+ansible-target2
+
+
+[webservers]
+ansible-target3
+ansible-target4 ansible_port=555
+
+
+[prod:children]
+prod1
+prod2
+
+
+[linux:children]
+prod
+webservers

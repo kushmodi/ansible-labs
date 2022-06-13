@@ -1,0 +1,9 @@
+-
+ hosts: ansible-target1
+ gather_facts: false
+ vars:
+         password: ansible
+ tasks:
+         - name: display password
+           debug:
+                   msg: "{{ password }}"  

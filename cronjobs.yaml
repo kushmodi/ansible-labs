@@ -1,0 +1,26 @@
+-
+ hosts: webservers
+ become: true
+ gather_facts: false
+ tasks: 
+       - name: Scheduling restart of rsyslog on webserver nodes
+         cron:
+                 name: "Scheduling restart on webserver nodes"
+                 hour: "2"
+                 minute: "0"
+                 weekday: "1"       
+                 job: /usr/bin/systemctl restart rsyslog
+
+-
+ hosts: prod
+ become: true
+ gather_facts: false
+ tasks:
+       - name: Scheduling restart of rsyslog on prod nodes
+         cron:
+                 name: "Scheduling restart on prod nodes"
+                 hour: "23,6"
+                 minute: "0"     
+                 job: /usr/bin/systemctl restart rsyslog
+                 
+

@@ -1,0 +1,25 @@
+-
+ hosts: webservers
+ become: true
+ gather_facts: false
+ tasks:
+         - name: create directory on webserver nodes
+           file:
+                   path: /web/html
+                   state: directory
+         - name: Creating group
+           group:
+                 name: testing
+                 state: present
+
+-
+ hosts: prod
+ become: true
+ gather_facts: false
+ tasks:
+         - name: Creating group
+           group:
+                 name: networks
+                 state: present
+                 
+        

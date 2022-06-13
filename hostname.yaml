@@ -1,0 +1,10 @@
+-
+ hosts: all
+ become: true
+ gather_facts: true
+ tasks:
+         - name: deploying template
+           template:
+                   src: /home/ansible-c/tasks/template.j2
+                   dest: /root/hostnames
+           when: inventory_hostname in groups['prod1']        

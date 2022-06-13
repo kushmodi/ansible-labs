@@ -1,0 +1,3 @@
+{% for host in ansible_play_batch -%}
+	{{ hostvars[host]['ansible_facts']['hostname'] }}
+{% endfor -%} 

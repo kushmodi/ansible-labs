@@ -1,0 +1,31 @@
+-
+ hosts: all
+ become: true
+ gather_facts: true
+ vars_files:
+           - userdetails.yaml
+           - passwords.yaml
+ tasks:
+           - name: Creating user in webserver node and assigning group
+             user:
+                   name: '{{ item.username }}'
+                   password: "{{ lisa_password | password_hash('sha512') }}"  
+                   group: testing
+             when: "item.department == 'software developer' and inventory_hostname in groups['webservers']"
+             loop: "{{ users }}"
+           - name: Creating user in prod node and assigning group 
+             user:
+                   name: '{{ item.username }}'
+                   password: "{{ bob_password | password_hash('sha512') }}" 
+                   group: networks
+             when: "item.department == 'testing' and inventory_hostname in groups['prod']"
+             loop: "{{ users }}"
+           - name: Creating user in all managed node and assigning group 
+             user:
+                   name: '{{ item.username }}'
+                   password: "{{ lara_password | password_hash('sha512') }}" 
+             when: "item.department == 'hr'"
+             loop: "{{ users }}"
+  
+  
+

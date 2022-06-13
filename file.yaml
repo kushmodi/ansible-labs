@@ -1,0 +1,14 @@
+-
+ hosts: all
+ become: true
+ gather_facts: false
+ tasks:
+         - name: Creating file, setting permisions and gid bit
+           file:
+                   path: /root/mark_file
+                   owner: mark
+                   group: mark
+                   mode: '2760'
+                   state: touch
+
+

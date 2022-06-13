@@ -1,0 +1,12 @@
+-
+ hosts: webservers
+ become: true
+ gather_facts: false
+ tasks: 
+       - name: setting context type
+         sefcontext:
+                    target: '/web/html(/.*)?'
+                    setype: httpd_sys_content_t
+                    state: present
+       - name: restoring context type 
+         command: restorecon -irv /web/html         

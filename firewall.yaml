@@ -1,0 +1,17 @@
+-
+ hosts: webservers
+ become: true
+ gather_facts: false
+ tasks:
+         - name: configuring firewall on webserver nodes
+           firewalld:
+                     name: http
+                     state: enabled
+                     permanent: yes
+           notify: reload firewall
+ handlers:
+         - name: reload firewall
+           service:
+                   name: firewalld
+                   state: reloaded         
+

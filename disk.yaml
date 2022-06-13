@@ -1,0 +1,10 @@
+-
+ hosts: all
+ become: true
+ gather_facts: true
+ tasks:
+         - name: deploying partitions using template
+           template:
+                   src: /home/ansible-c/tasks/disk.j2
+                   dest: /root/disk_size
+           when: inventory_hostname in groups['prod2']        

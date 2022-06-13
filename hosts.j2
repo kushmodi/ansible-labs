@@ -1,0 +1,5 @@
+{% for host in ansible_play_batch -%}
+{% if ‘ansible_enp0s3’ in hostvars[host] -%}
+	{{ hostvars[host][‘ansible_facts’][‘enp0s3’][‘ipv4’][‘address’] }}    {{ host }}.example.com      {{ host }}
+{% endif -%}
+{% endfor -%}

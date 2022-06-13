@@ -1,0 +1,16 @@
+-
+ hosts: all
+ become: true
+ gather_facts: false
+ tasks:
+         - name: Install samba on webserver nodes
+           yum:
+                   name: samba
+                   state: present
+           when: inventory_hostname in groups['webservers']
+        
+         - name: INstall nfs-utils on prod nodes
+           yum:
+                   name: nfs-utils
+                   state: present
+           when: inventory_hostname in groups['prod']         

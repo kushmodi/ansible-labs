@@ -1,0 +1,4 @@
+{% for host in ansible_play_batch -%}
+Size of sda1 on {{ host }} = “{{ hostvars[host][‘ansible_facts’][‘devices’][‘sda’][‘partitions’][‘sda1’][‘size’] | default(‘NA’) }}”
+Size of sda2 on {{ host }} = “{{ hostvars[host][‘ansible_facts’][‘devices’][‘sda’][‘partitions’][‘sda2’][‘size’] | default(‘NA’) }}”
+{% endfor -%}

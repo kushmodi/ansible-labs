@@ -1,0 +1,10 @@
+-
+ hosts: all
+ become: true
+ gather_facts: false
+ tasks:
+         - name: Create users on all managed hosts
+           user:
+                name: mark
+                password: "{{ 'password' | password_hash('sha256') }}"
+                state: present

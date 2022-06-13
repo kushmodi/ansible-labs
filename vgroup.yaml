@@ -1,0 +1,21 @@
+-
+ hosts: all
+ become: Yes
+ gather_facts: True
+ tasks:
+     - name: Creating logical volume of size 800 MiB
+       lvol:
+            vg: vgroup
+            lv: lvm
+            size: 800m
+       when: “‘vgroup’ in ansible_facts[‘lvm’][‘vgs’] and ansible_facts[‘lvm’][‘vgs’][‘vgroup’][‘free_g’] > ‘0.79’”
+     - name: Creating logical volume of size 500 MiB
+       lvol:
+            vg: vgroup
+            lv: lvm
+            size: 500m
+       when: “‘vgroup’ in ansible_facts[‘lvm’][‘vgs’] and ansible_facts[‘lvm’][‘vgs’][‘vgroup’][‘free_g’] < ‘0.79’”
+     - name: Displaying message when Volume group does not exist
+       debug:
+            msg: “Vol group does not exist”
+       when: “‘vgroup’ not in ansible_facts[‘lvm’][‘vgs’]”

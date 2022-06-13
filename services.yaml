@@ -1,0 +1,31 @@
+-
+ hosts: prod
+ become: true
+ gather_facts: false
+ tasks: 
+         - name: Install mariadb 
+           yum:
+                   name: 
+                        - mariadb-server
+                        - mariadb-common
+                   state: present
+         - name: Start and enable mariadb service
+           service:
+                   name: mariadb
+                   state: started
+                   enabled: yes     
+-
+ hosts: webservers
+ become: true
+ gather_facts: false
+ tasks:
+         - name: Install httpd
+           yum:
+                   name: httpd
+                   state: present
+         - name: Start and enable httpd service
+           service:
+                   name: httpd
+                   state: started
+                   enabled: yes
+

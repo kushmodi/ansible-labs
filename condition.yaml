@@ -1,0 +1,18 @@
+-
+ hosts:
+         - webservers
+         - prod1  
+ become: True
+ gather_facts: True
+ tasks:
+         - name: configuring motd message on webserver nodes
+           copy:
+                   content: "Welcome to webserver nodes\n"
+                   dest: /etc/motd
+           when: inventory_hostname in groups['webservers']
+         - name: configuring motd message on prod1 nodes
+           copy:
+                   content: "Welcome to ansible-target1 nodes\n"
+                   dest: /etc/motd
+           when: ansible_facts['hostname'] == 'ansible-target1'
+           
